@@ -2,19 +2,11 @@ import './style.css';
 
 const main = document.getElementsByTagName('main');
 
-window.refreshAll = () => {
-  console.log('refresh');
-};
-
-window.addScore = () => {
-  console.log('add score');
-};
-
 const content = `
 <section class="container-fluid">
   <div class="d-flex justify-content-between">
     <h2>Recent scores</h2>
-    <button type="button" class="btn btn-outline-primary" onclick="refreshAll()">Refresh</button>
+    <button type="button" class="btn btn-outline-primary">Refresh</button>
   </div>
   <table class="table">
     <thead>
@@ -52,12 +44,9 @@ const content = `
     <div class="mb-3">
       <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Your Score">
     </div>
-    <button type="button" class="btn btn-primary" onclick="addScore()">Submit</button>
+    <button type="button" class="btn btn-primary">Submit</button>
   </form>
 </aside>
 `;
 
 main[0].insertAdjacentHTML('beforeend', content);
-
-const scoreboard = document.getElementsByTagName('tbody');
-console.log(scoreboard[0]);
