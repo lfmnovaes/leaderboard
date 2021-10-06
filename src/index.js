@@ -1,20 +1,52 @@
-import _ from 'lodash';
-import printMe from './print.js';
 import './style.css';
 
-function component() {
-  const element = document.createElement('div');
-  const btn = document.createElement('button');
+const main = document.getElementsByTagName('main');
 
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-  element.classList.add('hello');
+const content = `
+<section class="container-fluid">
+  <div class="d-flex justify-content-between">
+    <h2>Recent scores</h2>
+    <button type="button" class="btn btn-outline-primary">Refresh</button>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>100</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>85</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Larry</td>
+        <td>50</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+<aside class="container-fluid">
+  <h2>Add  your score</h2>
+  <form>
+    <div class="mb-3">
+      <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Your Name">
+    </div>
+    <div class="mb-3">
+      <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Your Score">
+    </div>
+    <button type="button" class="btn btn-primary">Submit</button>
+  </form>
+</aside>
+`;
 
-  btn.innerHTML = 'Click me and check the console!';
-  btn.onclick = printMe;
-
-  element.appendChild(btn);
-
-  return element;
-}
-
-document.body.appendChild(component());
+main[0].insertAdjacentHTML('beforeend', content);
