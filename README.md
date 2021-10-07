@@ -34,7 +34,8 @@ An updated web browser
 
 ### Usage
 
-- Add your name and your score in the right side form to add to the leaderboard. (Not implemented yet)
+- Add your name and your score in the right side form to add to the leaderboard
+- Communicates with the Microverse API server to register your name and score to the database
 
 ## Authors
 
