@@ -1,3 +1,5 @@
-body {
-  background-color: white;
+.table-scrollbar {
+  position: relative;
+  height: 500px;
+  overflow: auto;
 }
