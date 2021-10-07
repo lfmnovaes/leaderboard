@@ -1,37 +1,57 @@
 import './style.css';
+import { fetchData, sendData } from './http.js';
+
+const addTr = (user, score) => {
+  const scoreboard = document.getElementsByTagName('tbody');
+  const htmlScore = `
+  <tr>
+    <td>${user}</td>
+    <td>${score}</td>
+  </tr>
+  `;
+  scoreboard[0].innerHTML += htmlScore;
+};
+
+const loadScore = async () => {
+  let scoreList = [];
+  await fetchData().then((leaderboard) => { scoreList = leaderboard.result; });
+  scoreList.sort((a, b) => b.score - a.score);
+  scoreList.forEach((e) => {
+    addTr(e.user, e.score);
+  });
+};
+
+window.refreshAll = () => {
+  const scoreboard = document.getElementsByTagName('tbody');
+  scoreboard[0].innerHTML = '';
+  loadScore();
+};
+
+window.addScore = () => {
+  const user = document.getElementById('inputName').value;
+  const score = document.getElementById('inputScore').value;
+  document.getElementById('inputName').value = '';
+  document.getElementById('inputScore').value = '';
+  sendData(user, score);
+  addTr(user, score);
+  window.refreshAll();
+};
 
 const main = document.getElementsByTagName('main');
-
 const content = `
 <section class="container-fluid">
   <div class="d-flex justify-content-between">
     <h2>Recent scores</h2>
-    <button type="button" class="btn btn-outline-primary">Refresh</button>
+    <button type="button" class="btn btn-outline-primary" onclick="refreshAll()">Refresh</button>
   </div>
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
+        <th scope="col">User</th>
         <th scope="col">Score</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>100</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>85</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>50</td>
-      </tr>
     </tbody>
   </table>
 </section>
@@ -39,14 +59,14 @@ const content = `
   <h2>Add  your score</h2>
   <form>
     <div class="mb-3">
-      <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Your Name">
+      <input type="text" class="form-control" id="inputName" placeholder="Your Name">
     </div>
     <div class="mb-3">
-      <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Your Score">
+      <input type="number" class="form-control" id="inputScore" placeholder="Your Score">
     </div>
-    <button type="button" class="btn btn-primary">Submit</button>
+    <button type="button" class="btn btn-primary" onclick="addScore()">Submit</button>
   </form>
 </aside>
 `;
-
 main[0].insertAdjacentHTML('beforeend', content);
+loadScore();
