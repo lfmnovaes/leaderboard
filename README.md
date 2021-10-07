@@ -2,7 +2,7 @@
 
 # Leaderboard
 
-> Leaderboard project.
+> The leaderboard website displays scores submitted by different players. It also allows you to submit your score. All data is preserved thanks to the external Leaderboard API service.
 
 ## Preview
 
@@ -30,12 +30,12 @@
 
 ### Prerequisites
 
-An updated web browser
+An updated web browser (preferably Chrome/Firefox/Opera/Edge)
 
 ### Usage
 
 - Add your name and your score in the right side form to add to the leaderboard
-- Communicates with the Microverse API server to register your name and score to the database
+- Communicates with an external API service to register your name and score to a database
 
 ## Authors
 
