@@ -1,6 +1,5 @@
 import './style.css';
-import './http';
-import { fetchData, sendData } from './http';
+import { fetchData, sendData } from './http.js';
 
 const addTr = (user, score) => {
   const scoreboard = document.getElementsByTagName('tbody');
@@ -13,19 +12,12 @@ const addTr = (user, score) => {
   scoreboard[0].innerHTML += htmlScore;
 };
 
-window.addScore = () => {
-  const user = document.getElementById('inputName').value;
-  const score = document.getElementById('inputScore').value;
-  addTr(user, score);
-  sendData(user, score);
-}
-
 const loadScore = async () => {
   let scoreList = [];
   await fetchData().then((leaderboard) => { scoreList = leaderboard.result; });
   scoreList.sort((a, b) => b.score - a.score);
-  scoreList.forEach((el) => {
-    addTr(el.user, el.score);
+  scoreList.forEach((e) => {
+    addTr(e.user, e.score);
   });
 };
 
@@ -33,6 +25,16 @@ window.refreshAll = () => {
   const scoreboard = document.getElementsByTagName('tbody');
   scoreboard[0].innerHTML = '';
   loadScore();
+};
+
+window.addScore = () => {
+  const user = document.getElementById('inputName').value;
+  const score = document.getElementById('inputScore').value;
+  document.getElementById('inputName').value = '';
+  document.getElementById('inputScore').value = '';
+  sendData(user, score);
+  addTr(user, score);
+  window.refreshAll();
 };
 
 const main = document.getElementsByTagName('main');
@@ -60,7 +62,7 @@ const content = `
       <input type="text" class="form-control" id="inputName" placeholder="Your Name">
     </div>
     <div class="mb-3">
-      <input type="text" class="form-control" id="inputScore" placeholder="Your Score">
+      <input type="number" class="form-control" id="inputScore" placeholder="Your Score">
     </div>
     <button type="button" class="btn btn-primary" onclick="addScore()">Submit</button>
   </form>

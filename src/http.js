@@ -8,7 +8,7 @@ export const fetchData = async () => {
       },
     });
     return data.json();
-  } catch(err) {
+  } catch (err) {
     throw new Error(err);
   }
 };
@@ -26,7 +26,7 @@ export const sendData = async (user, score) => {
         score: `${score}`,
       }),
     });
-  } catch(err) {
+  } catch (err) {
     throw new Error(err);
   }
-}
+};
