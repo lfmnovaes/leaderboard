@@ -1,9 +1,38 @@
 import './style.css';
-import './crud';
+import './http';
+import { fetchData, sendData } from './http';
 
+const addTr = (user, score) => {
+  const scoreboard = document.getElementsByTagName('tbody');
+  const htmlScore = `
+  <tr>
+    <td>${user}</td>
+    <td>${score}</td>
+  </tr>
+  `;
+  scoreboard[0].innerHTML += htmlScore;
+};
 
+window.addScore = () => {
+  const user = document.getElementById('inputName').value;
+  const score = document.getElementById('inputScore').value;
+  addTr(user, score);
+  sendData();
+}
 
+const loadScore = async () => {
+  let scoreList = [];
+  await fetchData().then((leaderboard) => { scoreList = leaderboard.result; });
+  scoreList.forEach((el) => {
+    addTr(el.user, el.score);
+  });
+};
 
+window.refreshAll = () => {
+  const scoreboard = document.getElementsByTagName('tbody');
+  scoreboard[0].innerHTML = '';
+  loadScore();
+};
 
 const main = document.getElementsByTagName('main');
 const content = `
@@ -15,23 +44,11 @@ const content = `
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">Name</th>
+        <th scope="col">User</th>
         <th scope="col">Score</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Mark</td>
-        <td>100</td>
-      </tr>
-      <tr>
-        <td>Jacob</td>
-        <td>85</td>
-      </tr>
-      <tr>
-        <td>Larry</td>
-        <td>50</td>
-      </tr>
     </tbody>
   </table>
 </section>
@@ -49,5 +66,4 @@ const content = `
 </aside>
 `;
 main[0].insertAdjacentHTML('beforeend', content);
-
-
+loadScore();
