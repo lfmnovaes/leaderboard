@@ -17,12 +17,13 @@ window.addScore = () => {
   const user = document.getElementById('inputName').value;
   const score = document.getElementById('inputScore').value;
   addTr(user, score);
-  sendData();
+  sendData(user, score);
 }
 
 const loadScore = async () => {
   let scoreList = [];
   await fetchData().then((leaderboard) => { scoreList = leaderboard.result; });
+  scoreList.sort((a, b) => b.score - a.score);
   scoreList.forEach((el) => {
     addTr(el.user, el.score);
   });
