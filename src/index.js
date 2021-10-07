@@ -4,7 +4,7 @@ import { fetchData, sendData } from './http.js';
 const addTr = (user, score) => {
   const scoreboard = document.getElementsByTagName('tbody');
   const htmlScore = `
-  <tr>
+  <tr class="fs-5">
     <td>${user}</td>
     <td>${score}</td>
   </tr>
@@ -41,30 +41,32 @@ const main = document.getElementsByTagName('main');
 const content = `
 <section class="container-fluid">
   <div class="d-flex justify-content-between">
-    <h2>Recent scores</h2>
-    <button type="button" class="btn btn-outline-primary" onclick="refreshAll()">Refresh</button>
+    <h2 class="display-4">Recent scores</h2>
+    <button type="button" class="btn btn-outline-primary btn-lg" onclick="refreshAll()">Refresh</button>
   </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">User</th>
-        <th scope="col">Score</th>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
+  <div class="table-scrollbar">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr class="fs-4">
+          <th scope="col">User</th>
+          <th scope="col">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
 </section>
 <aside class="container-fluid">
-  <h2>Add  your score</h2>
+  <h2 class="display-4">Add your score</h2>
   <form>
     <div class="mb-3">
-      <input type="text" class="form-control" id="inputName" placeholder="Your Name">
+      <input type="text" class="form-control form-control-lg" id="inputName" placeholder="Your Name">
     </div>
     <div class="mb-3">
-      <input type="number" class="form-control" id="inputScore" placeholder="Your Score">
+      <input type="number" class="form-control form-control-lg" id="inputScore" placeholder="Your Score">
     </div>
-    <button type="button" class="btn btn-primary" onclick="addScore()">Submit</button>
+    <button type="button" class="btn btn-primary btn-lg" onclick="addScore()">Submit</button>
   </form>
 </aside>
 `;
